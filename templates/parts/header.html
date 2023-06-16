@@ -1,0 +1,46 @@
+{% load static %}
+<header class="fixed-top">
+    <div class="container-fluid py-3 d-flex align-items-center tex-center justify-content-between justify-content-md-start flex-wrap">
+      <div class="logo-brand">
+        <a href="https://web.facebook.com/salem.mamdouh.1257/">
+          <img src="{% static 'img/logo-light.png' %}" alt="logo-brand">
+        </a>
+      </div>
+      <i class="fa-solid fa-circle-half-stroke pointer d-md-none darkTheme lead "></i>
+      <div class="toggle-menu pointer d-md-none me-4">
+        <i class="fa-solid fa-bars display-6"></i>
+      </div>
+      <div class="links d-flex align-items-center mx-auto justify-content-center justify-content-md-start t-duration overflow-hidden">
+        <div class="search">
+          <input type="search" name="searchHeader" placeholder="Search Here..." class="form-control rounded-5">
+        </div>
+        <div class="ms-md-3 mt-3 mt-md-0 t-duration pointer">Discover</div>
+        <div class="ms-md-3 mt-3 mt-md-0 t-duration c-gray c-white-hover pointer">Browse</div>
+        <div class="ms-md-3 mt-3 mt-md-0 t-duration c-gray c-white-hover pointer">{{request.user}}</div>
+        
+        <i class="ms-3 fa-solid fa-circle-half-stroke pointer d-none d-md-block darkTheme lead "></i>
+      </div>
+    </div>
+    <div class="prograss-header w-100">
+      <div class="background h-100 bg-main t-duration"></div>
+    </div>
+  </header>
+
+<script>
+  let white = document.q
+  let dark = document.querySelectorAll('.darkTheme');
+  dark.forEach(function (el) {
+    el.onclick = function () {
+      document.querySelector('html').id === '' ? document.querySelector('html').id = 'dark' : document.querySelector('html').id = '';
+      if (document.querySelector('html').id == 'dark') {
+        document.querySelector('header .logo-brand img').setAttribute('src', '{% static 'img/logo-dark.png' %}');
+        document.querySelector('footer .logo-brand img').setAttribute('src', '{% static 'img/logo-dark.png' %}' );
+      } else {
+        document.querySelector('header .logo-brand img').setAttribute('src', '{% static 'img/logo-light.png' %}');
+        document.querySelector('footer .logo-brand img').setAttribute('src', '{% static 'img/logo-light.png' %}');
+      }
+    }
+  })
+  
+
+</script>
