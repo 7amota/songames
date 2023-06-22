@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+  <!-- Start Content Games Details -->
+  <div class="characters section-padding-top my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 mb-4 mb-lg-0">
+          <div class="character-img">
+            <img src="{{char.image.url}}" alt="image" class="w-100 h-100 obj-cover">
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="character-name mb-3 lead">{{char.name}}</div>
+          <div class="charcter-dec lh-17 c-gray mb-4">{{char.details}}</div>
+          <div class="section-title position-relative text- light text-uppercase w-fit bg-main mb-3">Personal Information</div>
+          <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+              <div class="row mb-2">
+                <div class="col-auto">Real Name :</div>
+                <div class="col-auto c-gray">{{char.name | get_first_name:"first_name"}}</div>
+              </div>
+              {% if char.birthday %}
+              <div class="row mb-2">
+                <div class="col-auto">Birthday :</div>
+                <div class="col-auto c-gray">{{char.birthday}}</div>
+              </div>
+              {% endif %}
+              {% if char.age %}
+              <div class="row mb-2">
+                <div class="col-auto">age :</div>
+                <div class="col-auto c-gray">{{char.age}}</div>
+              </div>
+              {% endif %}
+              {% if char.height %}
+              <div class="row mb-2">
+                <div class="col-auto">Height :</div>
+                <div class="col-auto c-gray">{{char.height}}</div>
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-md-6 d-flex flex-wrap flex-lg-nowrap" style="gap:30px">
+              <div class="box">
+                <div class="text-center fw-bold mb-2">Full Power</div>
+                <div class="circle-prograss" role="progressbar" aria-label="progressbar" aria-valuemax="92" style="--value:92; --pgPercentage:92;"></div>
+              </div>
+              <div class="box">
+                <div class="text-center fw-bold mb-2">Most Loved</div>
+                <div class="circle-prograss" role="progressbar" aria-label="progressbar" aria-valuemax="73" style="--value:73; --pgPercentage:73;"></div>
+              </div>
+              <div class="box">
+                <div class="text-center fw-bold mb-2">Best Character</div>
+                <div class="circle-prograss" role="progressbar" aria-label="progressbar" aria-valuemax="57" style="--value:57; --pgPercentage:57;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Content Games Details -->
+  <!-- Start Gallary And RElated Games -->
+  <div class="section-padding-top section-padding-bottom" id="relatedGames">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-title position-relative text- light text-uppercase w-fit bg-main mb-3">Game Character</div>
+          <div class="owl-carousel owl-theme owl-related owl-main">
+            <a href='{% url 'gamePage' char.game.slug %}' class="item mb-3">
+              <div class="box pointer crad-game">
+                <div class="position-relative image-add">
+                  <img src="{{char.game.logo.url}}" alt="Image" class="w-100 h-100 obj-cover mb-2">
+                  <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+                </div>
+                  <div class="text">
+                  <div class="c-gray fs-13 text-capitalize">{{char.game.features}}</div>
+                  <div class="text-capitalize text-truncate">{{char.game.name}}</div>
+                  <div class="d-flex align-items-center justify-content-between mt-2">
+                    {% if char.game.discount %}
+                    <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-{{char.game.discount}}%</div>
+                    <div class="price">
+                      <div class="text-uppercase c-gray me-2"><del>{{char.game.price}} USD</del></div>
+                      <div class="text-uppercase">{{char.game.get_price_after_sale}}</div>
+                      {% else %}
+                      <div class="text-uppercase c-gray me-2">{{char.game.price}} USD</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="section-title position-relative text- light text-uppercase w-fit bg-main mb-3">Related Games</div>
+          <div class="owl-carousel owl-theme owl-related owl-main">
+            {% for game in rgames %}
+            <a href='{% url 'gamePage' game.slug %}' class="item mb-3">
+              <div class="box pointer crad-game">
+                <div class="position-relative image-add">
+                  <img src="{{game.logo.url}}" alt="Image" class="w-100 h-100 obj-cover mb-2">
+                  <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+                </div>
+                  <div class="text">
+                  <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
+                  <div class="text-capitalize text-truncate">{{game.name}}</div>
+                  <div class="d-flex align-items-center justify-content-between mt-2">
+                    {% if game.discount %}
+                    <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-{{game.discount}}%</div>
+                    <div class="price">
+                      <div class="text-uppercase c-gray me-2"><del>{{game.price}} USD</del></div>
+                      <div class="text-uppercase">{{game.get_price_after_sale}} USD</div>
+                      {% else %}
+                      <div class="text-uppercase c-gray me-2">{{game.price}} USD</div>
+
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Gallary And RElated Games -->
+  {% endblock content %}

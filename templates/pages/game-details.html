@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'parts/header.html' %}
+<!-- Start Content Games Details -->
+  <div class="games-detailes section-padding-top section-padding-bottom my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8">
+          <div class="display-6 text-truncate mb-3">{{game.name}}</div>
+          <div class="owl-carousel owl-theme position-relative owl-game overflow-hidden rounded-10">
+            <div class="item rounded-10">
+              <img src="{{game.banner.url}}" alt="image">
+            </div>
+          </div>
+          <div class="gaem-detailes-box my-4">Take the offensive in Fortnite Zero Build: No-Build Battle Royale! Zero Build is a tactical take on Fortnite Battle Royale. Show off your sharp shooting, sharp thinking, and sharp sense of space as you take on the battle full-tilt!</div>
+          <div class="row game-places mb-4">
+            <div class="col-sm-6">
+              <div class="position-relative ps-3 box h-100 p-2">
+                <div class="c-gray">Categories</div>
+                <div class="d-flex flex-wrap">
+                  {% for gamec in game.categories.all %}
+                  <a href="#" class="me-2">{{gamec.title}},</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="position-relative ps-3 box h-100 p-2">
+                <div class="c-gray">Features</div>
+                <div class="d-flex flex-wrap">
+                  <a href="#" class="me-2 text-capitalize">Co-op,</a>
+                  <a href="#" class="me-2 text-capitalize">compitive,</a>
+                  <a href="#" class="me-2 text-capitalize">control suppurt,</a>
+                  <a href="#" class="me-2 text-capitalize">multyplaye,</a>
+                  <a href="#" class="me-2 text-capitalize">online game</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="title-dec mb-3">{{game.name}}</div>
+          <div class="mb-3 c-gray fw-bold">{{game.title}}</div>
+          <div class="mb-3 c-gray fw-bold">{{game.details}}</div>
+          <div class="c-gray fw-bold">Without building, all players have the recharging Overshield as their first line of defense in Zero Build. Slide downhill to avoid enemy fire or use mantling to get the high ground on opponents. Don’t forget to sprint between cover on your way to a Victory !</div>
+          <div class="rating mt-5">
+          </div>
+        </div>
+        <div class="col-xl-3 pt-5 ">
+          <img src="{{game.bannerLogo.url}}" alt="image" class="img-fluid pt-4 mx-auto d-block mb-5 pb-5">
+          <div class="d-flex p-2 border align-items-center game-baged rounded-2 mx-auto">
+            <img src="{% static 'img/bage-gaem.png' %}" alt="image" class="img-fluid me-2" width="50px">
+            <div class="text">
+              <div class="fw-bold tex-light">PEGI 12</div>
+              <div class="c-gray">Voline In Game, You Know</div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center mt-3 gap-10 mb-4">
+            {% if game.discount %}
+            <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer">-{{game.discount}}%</div>
+            <div class="price d-flex gap-10">
+              <div class="text-uppercase c-gray me-2"><del>{{game.price}} USD</del></div>
+              <div class="text-uppercase">{{game.get_price_after_sale}} USD</div>
+            </div>
+            {% else %}
+            <div class="text-uppercase">{{game.price}} USD</div>
+            {% endif %}
+          </div>
+          <form method="POST" >
+          <input value="add to cart" type="submit"  name="cart" class="game-baged border px-4 py-3 text-capitalize w-100 text-center rounded-2 mb-3 bg-gradien-hover t-duration">
+            {% csrf_token %}
+            <input type="submit" value='add to Whishlist' name="wishList" class="game-baged border px-4 py-2 text-capitalize w-100 text-center rounded-2 mb-4 bg-gradien-hover t-duration">
+            {% include "parts/messages.html" %}
+          </form>
+          <div class="pb-2 mb-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="c-gray fw-bold text-capitalize">Developer</div>
+            <div class="text-capitalize">Son Games</div>
+          </div>
+          <div class="pb-2 mb-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="c-gray fw-bold text-capitalize">Publisher</div>
+            <div class="text-capitalize">Son Games</div>
+          </div>
+          <div class="pb-2 mb-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="c-gray fw-bold text-capitalize">Release Date</div>
+            <div class="text-capitalize">03/30/23</div>
+          </div>
+          <div class="pb-2 mb-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="c-gray fw-bold text-capitalize">Initial Release</div>
+            <div class="text-capitalize">03/29/22</div>
+          </div>
+          <div class="pb-2 mb-3 border-bottom d-flex align-items-center justify-content-between">
+            <div class="c-gray fw-bold text-capitalize">Platform</div>
+            <div class="text-capitalize"><i class="fa-brands fa-windows"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Content Games Details -->
+{% endblock content %}

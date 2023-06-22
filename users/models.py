@@ -9,7 +9,7 @@ class User(AbstractUser):
     )
     email = models.EmailField(max_length=80, unique=True)
     image = models.ImageField(upload_to='Photos/%y/%m/%d',null=True , blank=True)
-    username = models.CharField(max_length=45)
+    username = models.CharField(max_length=45, unique=True)
     phoneNumber = models.IntegerField(null=True , blank=True)
     dateBirth = models.DateField(null=True , blank=True)
     location = models.TextField(null=True , blank=True)
@@ -17,3 +17,9 @@ class User(AbstractUser):
     objects = CustomUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    slug = models.SlugField()
+    def __str__(self):
+        return self.slug
+    

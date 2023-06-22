@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'parts/header-utlis.html' %}
+<body class="use-page user-profile">
+    <!-- Start Landing -->
+    <div class="landing position-relative mt-0">
+      <div class="container text-center">
+        <div class="display-5 fw-bold">My Games</div>
+        <div class="lead d-flex justify-content-center">Go To Your <a href="{% url 'wish' %}" class="text-black ms-1 c-white-hover">Wishlist</a></div>
+      </div>
+    </div>
+    <!-- End Landing -->
+    <!-- Strat Edit -->
+    <div class="my-games-menu position-relative section-padding-bottom" style="margin-top: -100px;">
+      <div class="container">
+        <div class="row">
+            {% for game in item %}
+          <div class="col-lg-2 col-sm-4 col-6 mb-3">
+            <div class="box pointer crad-game action">
+              <div class="position-relative">
+                <img src="{{game.game.logo.url}}" alt="Image" class="w-100 h-100 obj-cover mb-2">
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <!-- End Edit -->
+
+  </body>
+  {% endblock content %}
