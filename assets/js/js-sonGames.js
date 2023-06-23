@@ -29,9 +29,7 @@ document.addEventListener('click', function(e) {
     if (e.target == el) {
       document.querySelector('html').id === '' ? document.querySelector('html').id = 'light' : document.querySelector('html').id = '';
       if (document.querySelector('html').id == 'light') {
-        document.querySelector('.logo-brand img').setAttribute('src', 'img/logo-light.png');
       } else {
-        document.querySelector('.logo-brand img').setAttribute('src', 'img/logo-dark.png');
       }
     }
   })
