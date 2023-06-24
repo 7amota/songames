@@ -90,10 +90,9 @@
           <div class="col-xl-4 col-12 mb-4">
             <div class="profile-info-box p-4 rounded-10 mb-4">
               {% if user.image %}
-              <img src="{{user.image.url}}" alt="image" width="170px" class="mx-auto d-block mb-2">
+              <img src="{{user.image.url}}" alt="image" width="170px" class="mx-auto d-block mb-2 rounded-circle">
               {% else %}
               <img src="{% static 'img/user-img.png' %}" alt="image" width="170px" class="mx-auto d-block mb-2">
-              
               {% endif %}
               {{update.image}}
               <div class="detailes d-flex gap-10 align-items-center justify-content-center mb-4">

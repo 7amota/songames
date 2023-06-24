@@ -14,11 +14,11 @@
           {% if cart_item %}
   {% for item in cart_item %}
   
-  <div class="row align-items-center mb-3 cloneItem justify-content-center" value="{{item.game.price}}">
+  <div class="row align-items-center mb-3 cloneItem justify-content-center justify-content-sm-between" value="{{item.game.price}}">
     <div class="col-sm-2 mb-2 mb-sm-0 image text-center">
       <img src="{{item.game.logo.url}}" alt="image" width="70px" height="50px" class="rounded-10 obj-cover">
     </div>
-    <div class="col-sm-8 col-auto ps-lg-4 ps-xl-0 text">
+    <div class="col-sm-7 col-auto ps-lg-4 ps-xl-0 text">
       <div class="c-gray fs-13 text-capitalize">{{item.game.features}}</div>
       <div class="text-capitalize text-truncate">{{item.game.name}}</div>
     </div>
@@ -159,7 +159,7 @@ orderCLone[i].id = `${i}`;
 
 for (let i = 0; i < orderCLone.length; i++) {
   let structer = document.createElement('div');
-  structer.classList.add('row', 'align-items-center', 'justify-content-center', 'mb-3', 'cloneItem');
+  structer.classList.add('row', 'align-items-center', 'justify-content-center', "justify-content-sm-between",'mb-3', 'cloneItem');
   structer.id = `${i}`
 
   let priceCounter = document.createElement('div');
