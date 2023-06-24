@@ -78,7 +78,11 @@
             <div class="text">
               <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
               <div class="text-capitalize">{{game.titile}}</div>
+              {% if game.discount %}
+              <div class="text-capitalize">{{game.get_price_after_sale}} USD</div>
+              {% else %}
               <div class="text-capitalize">{{game.price}} USD</div>
+              {% endif %}
             </div>
           </div>
         </a>
