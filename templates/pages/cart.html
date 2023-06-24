@@ -25,7 +25,7 @@
     <div class="col-sm-2 col-auto">
       <form method="POST" class="input-group number-items m-auto position-relative w-fit bg-body rounded-1 ms-auto" style="width: 100px;">
         {% csrf_token %}
-        <input type="hidden" name="id" value="{{item.game.id}}">
+        <input type="hidden" name="id" value="{{item.game.pk}}">
         <input type="submit" name='cancle' value="" class="px-3 py-1 bg-transparent deletGame" style="z-index: 2;">
         <i class="fa-solid fa-xmark position-absolute start-50 top-50 translate-middle" style="color: red !important;"></i>
       </form>

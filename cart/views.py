@@ -21,7 +21,8 @@ class CartView(LoginRequiredMixin,generic.View):
        cart_item = CartItem.objects.select_related("cart","game").filter(cart=cart,check_out=False)
        if 'cancle' in request.POST:
         id = request.POST.get('id')
-        itemm = cart_item.get(id=id)
+        print(id)
+        itemm = cart_item.get(id=2)
         itemm.delete()
         return self.get(request)
            

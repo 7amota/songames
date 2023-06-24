@@ -49,7 +49,7 @@
         <div class="col-lg-3 mt-2 mt-lg-0">
           <div class="content-items d-flex flex-lg-column flex-wrap gap-10 justify-content-between gap-10 h-100">
             <a href='{% url 'gamePage' fgame.slug %}' class="box p-2 d-flex t-duration rounded-10 pointer align-items-center w-100 active">
-              <img src="{{fgame.logo.url}}" alt="image" class="rounded-10">
+              <img src="{{fgame.logo.url}}" alt="image" class="rounded-10 obj-cover">
               <div class="text ms-3 text-capitalize">{{fgame.name}}</div>
             </a>
             {% for game in langames %}
@@ -254,12 +254,12 @@
   <style>
     .most-charcter-poupler .charcters .image img {
       height: 180px !important;
-      object-fit: contain;
+      object-fit:contain;
   }
     .most-view img {
       width: 100%;
       aspect-ratio: 1.7;
-      object-fit: cover;
+      object-fit:cover;
   }
   </style>
   <!-- End More Games -->
