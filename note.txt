@@ -1,0 +1,20 @@
+- GAME
+game name
+game title
+gmae details
+game price 
+game logo
+game features
+game developer
+game publisher
+release date
+intial release
+platform
+game banner
+game banner logo
+
+- CHARCTER
+character img (one to one)
+- category
+category (foreignkey)
+sale

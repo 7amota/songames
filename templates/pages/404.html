@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body class="noPage">
+  <div class="content mt-4 d-flex flex-column align-items-center justify-content-center">
+    <div class="container">
+      <div class="d-flex justify-content-center justify-content-lg-end align-items-center position-relative flex-wrap" style="gap:20px">
+        <div class="ufo position-absolute start-0 top-0 d-none d-lg-block">
+          <img src="{% static 'img/ufo.png' %}" alt="">
+        </div>
+        <div class="box py-2">
+          <div class="display-6 mb-2 text-center text-sm-start">Don't cry</div>
+          <a href="{% url 'home' %}" class="px-3 py-2 bg-gradien-hover bg-border-gradien t-duration rounded-5">Back to home</a>
+        </div>
+        <div class="wall d-none d-sm-block"></div>
+        <div class="box py-2">
+          <div class="text-light mb-2 text-center text-sm-start">It's just 404 error!</div>
+          <div class="text-center text-sm-start">The page vol are looking <br>for it is't avaiavle</div>
+        </div>
+      </div>
+      <div class="titleFound">404</div>
+    </div>
+  </div>
+<style>
+  .noPage {
+    background: url({% static 'img/404-bg.jpg' %}) center center / cover fixed;
+  }
+  .noPage .content {
+    min-height: 100vh;
+  }
+  .noPage .ufo {
+    rotate: -10deg;
+  }
+  .noPage .wall {
+    width: 2px;
+    background-color: #c0dcda;
+    height: 110px;
+  }
+  .noPage .titleFound {
+    font-size: 300px;
+    font-weight: 900;
+    text-align: center;
+  }
+  @media (max-width:768px) {
+    .noPage .titleFound {
+      font-size: 150px;
+    }
+  }
+</style>
+</body>
+{% endblock content %}

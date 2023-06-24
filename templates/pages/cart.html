@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags_two %}
+  <!-- start Cart -->
+  {% block content %}
+  {% include 'parts/header.html' %}
+  <div class="cart-shopping section-padding-top my-5 flex-column-reverse flex-lg-row">
+    <div class="container">
+      <div class="row bg-header cart-content">
+        <div class="col-lg-6 p-5">
+          <div class="lead fw-bold mb-4">My Orders</div>
+          <!-- Strat Order -->
+          {% include 'parts/messages.html' %}
+          {% if cart_item %}
+  {% for item in cart_item %}
+  
+  <div class="row align-items-center mb-3 cloneItem justify-content-center" value="{{item.game.price}}">
+    <div class="col-sm-2 mb-2 mb-sm-0 image text-center">
+      <img src="{{item.game.logo.url}}" alt="image" width="70px" height="50px" class="rounded-10 obj-cover">
+    </div>
+    <div class="col-sm-8 col-auto ps-lg-4 ps-xl-0 text">
+      <div class="c-gray fs-13 text-capitalize">{{item.game.features}}</div>
+      <div class="text-capitalize text-truncate">{{item.game.name}}</div>
+    </div>
+    <div class="col-sm-2 col-auto">
+      <form method="POST" class="input-group number-items m-auto position-relative w-fit bg-body rounded-1 ms-auto" style="width: 100px;">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{item.game.id}}">
+        <input type="submit" name='cancle' value="" class="px-3 py-1 bg-transparent deletGame" style="z-index: 2;">
+        <i class="fa-solid fa-xmark position-absolute start-50 top-50 translate-middle" style="color: red !important;"></i>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>Your cart is empty.</p>
+{% endif %}
+          <!-- End Order -->
+          <div class="lead fw-bold mb-2 mt-5">Access This Later</div>
+          <p class="m-0 fs-13 mb-2">You Should Write Your Password To Complete Checkout</p>
+          <form action="" method="POST">
+            {% csrf_token %}
+            <input type="password" name="password" id="password" class="form-control rounded-1 mb-3 p-2" placeholder="Write Your Password..">
+            <div class="d-flex flex-wrap justify-content-between gap-10 align-items-center">
+              <div class="c-gray fs-13">8 Character Minmum</div>
+              <input type="submit" class="bg-border-gradien bg-gradien-hover form-control w-fit rounded-1 py-2 px-4 t-duration" value="Check">
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-6 p-5 bg-body">
+          <div class="image text-center mb-3">
+            <img src="{% static 'img/user-img.png' %}" alt="image" width="60px" height="60px" class="rounded-circle">
+            <div class="lead"><span class="fw-bold">Orders</span> #0001</div>
+          </div>
+          <div class="d-flex align-items-center justify-content-center gap-10 mb-4">
+
+            {% if check_out == False %}
+            <div class="box d-flex paid">
+              <div class="fw-bold me-2">Status: </div>
+              <div><i class="fa-regular fa-circle-check c-primary fs-13"></i> paid</div>
+            </div> 
+            {% else %}
+            <div class="box d-flex unpaid">
+              <div class="fw-bold me-2">Status: </div>
+              <div><i class="fa-regular fa-circle-xmark fs-13" style="color: red;"></i> unpaid</div>
+            </div>
+            {% endif %}
+            <div class="box d-flex date-check">
+              <div class="fw-bold me-2">Date: </div>
+              <div>{% get_date %}</div>
+            </div>
+          </div>
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item overflow-hidden">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-header" type="button" data-bs-toggle="collapse" data-bs-target="#accr-one" aria-expanded="true" aria-controls="accr-one">
+                  Ordre Summary
+                </button>
+              </h2>
+              <div id="accr-one" class="accordion-collapse show collapse">
+                <div class="accordion-body bg-body cloneItemPlace">
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item overflow-hidden">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-header" type="button" data-bs-toggle="collapse" data-bs-target="#accr-two" aria-expanded="true" aria-controls="accr-one">
+                  Price
+                </button>
+              </h2>
+              <div id="accr-two" class="accordion-collapse show collapse">
+                <div class="accordion-body bg-body cloneItemPlace">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotle</span>
+                    <div>USD<span class="subtotle ms-1"></span></div>
+                  </div>
+                  <div class="d-flex justify-content-between mb-2">
+                    <span>Discount</span>
+                    <div><span class="discount-order ms-1">20</span>%</div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>Totle</span>
+                    <div>USD<span class="totle-order ms-1"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item overflow-hidden">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-header" type="button" data-bs-toggle="collapse" data-bs-target="#accr-three" aria-expanded="true" aria-controls="accr-one">
+                  Timeline
+                </button>
+              </h2>
+              <div id="accr-three" class="accordion-collapse show collapse">
+                <div class="accordion-body bg-body cloneItemPlace">
+                  <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex">
+                      <i class="fa-solid fa-paper-plane me-2 position-relative" style="bottom: -5px;"></i>
+                      <div class="text">
+                        {% if cart.check_out %}
+                        <p class="m-0">Order Created</p>
+                        {% else %}
+                        <p class="m-0">Order Not Created</p>
+                        {% endif %}
+                        <span class="fs-13 c-gray">1 oct, 14:23</span>
+                      </div>
+                    </div>
+                    <span class="email-sent">
+                      {{cart.user.email}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Cart -->
+<style>
+  .input-group .btn:focus {
+  z-index: unset !important;
+}</style>
+
+
+<script>
+  // Clone Elemnts
+
+let orderCLone = document.querySelectorAll('.cloneItem');
+let orderCLoneImage = document.querySelectorAll('.cloneItem .image');
+let orderCLoneText = document.querySelectorAll('.cloneItem .text');
+let cloneItemPlace = document.querySelector('.cloneItemPlace');
+
+
+for (let i = 0; i < orderCLone.length; i++) {
+orderCLone[i].id = `${i}`;
+}
+
+for (let i = 0; i < orderCLone.length; i++) {
+  let structer = document.createElement('div');
+  structer.classList.add('row', 'align-items-center', 'justify-content-center', 'mb-3', 'cloneItem');
+  structer.id = `${i}`
+
+  let priceCounter = document.createElement('div');
+  priceCounter.classList.add('col-sm-2', 'col-auto', 'fs-13', 'c-primary', 'text-center')
+
+  let spanParent = document.createElement('span');
+  let spanParentText = document.createTextNode('dkk ');
+  spanParent.append(spanParentText);
+
+  let spanCounetr = document.createElement('span');
+  spanCounetr.classList.add('priceOrder')
+  spanCounetr.textContent = orderCLone[i].getAttribute('value');
+  spanCounetr.setAttribute('value', `${orderCLone[i].getAttribute('value')}`)
+  spanParent.append(spanCounetr)
+
+  priceCounter.append(spanParent)
+
+  structer.append(orderCLoneImage[i].cloneNode(true))
+  structer.append(orderCLoneText[i].cloneNode(true))
+  structer.append(priceCounter)
+  cloneItemPlace.append(structer)
+}
+
+let subtotle = document.querySelector('.subtotle');
+let discount = document.querySelector('.discount-order');
+let totle = document.querySelectorAll('.totle-order');
+
+let calcPrice = () => {
+  let subtotleText = 0;
+  let subtotleTextAll =  document.querySelectorAll('span.priceOrder');
+  for (let i = 0; i < subtotleTextAll.length; i++) {
+    subtotleText += +subtotleTextAll[i].textContent
+  }
+  subtotle.innerHTML = subtotleText
+  totle.forEach(el => el.innerHTML = Math.floor(+subtotle.textContent - (+subtotle.textContent * +discount.textContent / 100)))
+}
+
+calcPrice()
+
+
+</script>
+{% endblock content %}

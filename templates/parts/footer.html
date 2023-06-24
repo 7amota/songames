@@ -1,0 +1,46 @@
+{% load static %}
+ <!-- Start Footer -->
+ <footer class=" position-relative bg">
+  <div class="container-fluid">
+    <div class="row justify-content-between pt-5">
+      <div class="col-xl-3 col-md-5 mb-5">
+        <img src="{% static 'img/logo-dark.png' %}" width="50px" class="img-fluid mb-4">
+        <p class="mb-4 text-gray">Our team at Code Club is a group of passionate developers and designers who are dedicated to creating high-quality websites and mobile apps. With years of experience in the tech industry .</p>
+        <div class="font-weight-bold mb-4">ACTIVE <span class="c-green">WITH US <i class="fa-solid fa-angles-right"></i></span></div>
+        <div class="social d-flex align-items-center gap-10 me-4 me-sm-0">
+          <a href="https://www.instagram.com/codeclubnetwork/">
+            <img src="{% static 'img/8e2a889fd455e2fb181f7f8f1407300e.webp' %}" alt="image">
+          </a>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-5 mb-5">
+        <div class="text-light mb-4 lead font-weight-bold">QUICK LINK</div>
+        <ul>
+          <li><a href="{% url 'home' %}" class="c-gray mb-2 c-primary-hover t-duration">Home</a></li>
+          <li><a href="browse.html" class="c-gray mb-2 c-primary-hover t-duration">Browse</a></li>
+          <li><a href="{% url 'login-register' %}" class="c-gray mb-2 c-primary-hover t-duration">Log In Or Sign In</a><li>
+          <li><a href="{% url 'profile' %}" class="c-gray mb-2 c-primary-hover t-duration">Profile</a></li>
+        </ul>
+      </div>
+      <div class="col-xl-3 col-md-5 mb-5">
+        <div class="text-light mb-4 lead font-weight-bold">Most Searched</div>
+        <ul>
+          <li><a href="{% url 'search' %}" class="c-gray mb-2 c-primary-hover t-duration text-capitalize">dragon ball xenoverse 2</a></li>
+          <li><a href="{% url 'search' %}" class="c-gray mb-2 c-primary-hover t-duration text-capitalize">dragon ball xenoverse</a></li>
+          <li><a href="{% url 'search' %}" class="c-gray mb-2 c-primary-hover t-duration text-capitalize">Nartuo Storm 4</a></li>
+          <li><a href="{% url 'search' %}" class="c-gray mb-2 c-primary-hover t-duration text-capitalize">Nartuo Storm 3</a></li>
+          <li><a href="{% url 'search' %}" class="c-gray mb-2 c-primary-hover t-duration text-capitalize">one piece pirate warriors 4</a></li>
+        </ul>
+      </div>
+      <div class="col-xl-3 col-md-5 mb-5">
+        <div class="text-light mb-4 lead font-weight-bold">NEWSLETTER</div>
+        <p class="text-gray mb-4">Subscribe our newsletter to get our latest update &amp; newsconsectetur</p>
+        <div class="input-group">
+          <input type="text" class="form-control border border-end-0" placeholder="Recipient's username" aria-label="Get News &amp; Update">
+          <span class="input-group-text c-green rounded-0 border-0 p-3 px-4 c-primary"><i class="fa-solid fa-paper-plane"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="text-center Copyright py-4">Copyright © 2023 MYKD  Co., Ltd. All Rights Reserved. Designed by <span class="c-primary">Code Club (Web Team) </span></p>
+</footer>

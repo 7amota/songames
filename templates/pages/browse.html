@@ -1,0 +1,81 @@
+  {% extends 'base.html' %}
+  {% load static %}
+  {% block content %}
+  {% include 'parts/header.html' %}
+  <!-- Start Content -->
+  <div class="browse section-padding-top my-5">
+    <div class="container">
+      <div class="row flex-column-reverse flex-lg-row">
+        <div class="col-lg-8 row paginate">
+          {% for game in game %}
+          <a href="{% url 'gamePage' game.slug %}" class="col-lg-3 col-sm-4 col-6 mb-3">
+            <div class="box pointer crad-game action shooter">
+              <div class="position-relative image-add">
+                <img src="{{game.logo.url}}" alt="Image" class="w-100 h-100 obj-cover mb-2">
+                <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+              </div>
+                <div class="text">
+                <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
+                <div class="text-capitalize text-truncate">{{game.name}}</div>
+                <div class="d-flex align-items-center justify-content-between mt-2">
+                  {% if game.discount %}
+                  <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-{{game.discount}}%</div>
+                  <div class="price">
+                    <div class="text-uppercase c-gray me-2"><del>{{game.price}} USD</del></div>
+                    <div class="text-uppercase">USD <span class="price-filter">{{game.get_price_after_sale}}</div>
+                  </div>
+                  {% else %}
+                  <div class="text-uppercase">USD <span class="price-filter">{{game.price}}</div>
+
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+        <div class="col-lg-4">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item overflow-hidden">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-header" type="button" data-bs-toggle="collapse" data-bs-target="#accr-one" aria-expanded="false" aria-controls="accr-one">
+                  Price
+                </button>
+              </h2>
+              <div id="accr-one" class="accordion-collapse collapse show">
+                <div class="accordion-body bg-body">
+                  <form method="POST">
+                    {% csrf_token %}
+                    <input type="submit" name="all" value="All" class="all-filter mb-2 t-duration c-primary-hover pointer mb-2">
+                    <input type="submit" name="95" value="Under USD 95.00" class="d-flex t-duration c-primary-hover pointer p95-fiter mb-2">
+                    <input type="submit" name="190" value="Under USD 190.00" class="d-flex t-duration c-primary-hover pointer p190-fiter mb-2">
+                    <input type="submit" name="280" value="Under USD 280.00" class="d-flex t-duration c-primary-hover pointer p280-fiter mb-2">
+                    <input type="submit" name='free' value="Free" class="d-flex t-duration c-primary-hover pointer p140-fiter mb-2">
+                  </form>
+              </div>
+              </div>
+            </div>
+            <div class="accordion-item overflow-hidden">
+              <h2 class="accordion-header">
+                <button class="accordion-button bg-header" type="button" data-bs-toggle="collapse" data-bs-target="#accr-two" aria-expanded="false" aria-controls="accr-one">
+                  Category
+                </button>
+              </h2>
+              <div id="accr-two" class="accordion-collapse collapse show">
+                <form method="POST">
+                  {% csrf_token %}
+                <div class="accordion-body bg-body">
+                  <input type="submit" name="all" value="ALL" class="all-filter mb-2 t-duration c-primary-hover pointer">
+                  {% for cat in cat %}
+                  <input type="submit" name="{{cat.title}}" value="{{cat.title}}" class="d-block shooter-filter mb-2 t-duration c-primary-hover pointer">
+                  {% endfor %}
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}

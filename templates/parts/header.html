@@ -1,0 +1,53 @@
+{% load static %}
+<header class="fixed-top">
+  <div class="container-fluid py-3 d-flex align-items-center tex-center flex-wrap">
+    <div class="logo-brand">
+      <a href="{% url 'home' %}">
+        <img src="{% static 'img/logo-dark.png' %}" alt="logo-brand">
+      </a>
+    </div>
+    <div class="d-flex cart d-md-none gap-10 align-items-center ms-auto me-4 mx-md-auto">
+      <i class="fa-solid fa-circle-half-stroke pointer lightTheme lead "></i>
+      <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping t-duration pointer lead mt-1 ms-2"></i></a>
+    </div>
+    <div class="links d-flex align-items-center mx-auto  justify-content-center justify-content-md-start t-duration overflow-hidden">
+      <form action="{% url 'search' %}" method="get">
+        <div class="search">
+          <input type="search" name="searchHeader" id="searchHeader" placeholder="Search Here..." class="form-control rounded-5">
+        </div>
+      </form>
+      <a href="{% url 'home' %}" class="ms-md-3 mt-3 mt-md-0 t-duration pointer">Discover</a>
+      <a href="{% url 'browse' %}" class="ms-md-3 mt-3 mt-md-0 t-duration c-gray c-white-hover pointer">Browse</a>
+      <a href="{% url 'mygames' %}" class="ms-md-3 mt-3 mt-md-0 t-duration c-gray">MyGames</a>
+      
+      <a href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping ms-md-5 t-duration pointer d-none d-md-block lead"></i></a>
+      <i class="ms-3 fa-solid fa-circle-half-stroke pointer d-none d-md-block lightTheme lead"></i>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="user-parent d-flex align-items-center">
+      <div class="toggle-menu pointer d-md-none me-4">
+        <i class="fa-solid fa-bars display-6"></i>
+      </div>
+      <a href="{% url 'profile' %}" class="user d-flex align-items-center gap-10">
+        <div class="name">{{request.user.username}}</div>
+        {% if request.user.image %}
+        <img src="{{request.user.image.url}}" alt="image" width="35px" class="rounded-5">
+        {% else %}
+        <img src="{% static 'img/user-img.png' %}" alt="image" width="35px" class="rounded-5">
+
+        {% endif %}
+      </a>
+    </div>
+    {% else %}
+    <div class="d-flex gap-10">
+        <a href="{% url 'login-register' %}" class="login bg-border-gradien bg-gradien-hover px-3 py-1 rounded-1">Login</a>
+        <a href="{% url 'login-register' %}" class="login bg-gradien px-3 py-1 rounded-1">Sing In</a>
+      </div>
+    {% endif %}
+  </div>
+  <div class="prograss-header w-100">
+    <div class="background h-100 bg-main t-duration"></div>
+  </div>
+
+  
+</header>

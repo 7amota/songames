@@ -1,0 +1,46 @@
+{% for message in messages %}
+    {% if message.tags == 'error' %}
+        <div class="alert alert-danger alert-dismissible w-100 fixed-top t-duration" role="alert" place="us-register" data-removable="true">
+            {{ message }}
+        </div>
+    {% elif message.tags == 'success' %}
+        <div class="alert alert-success alert-dismissible w-100 fixed-top t-duration" role="alert" place="us-register" data-removable="true">
+            {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    var alertElement = document.querySelector(".alert[data-removable='true']");
+    if (alertElement) {
+        setTimeout(function() {
+            if (alertElement.getAttribute("data-removable") === "true") {
+                alertElement.classList.add("hide");
+                setTimeout(function() {
+                    alertElement.remove();
+                }, 500); // wait for the transition to complete
+            }
+        }, 2000);
+    }
+});
+</script>
+
+<style>
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.hide {
+    transform: translateY(-100%);
+    transition: transform 0.5s ease-out;
+}
+</style>

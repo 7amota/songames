@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<body class="use-page">
+    {% include 'parts/header.html' %}
+  <!-- Start Landing -->
+  <div class="landing position-relative" style="  background-color: rgba(17, 109, 110, 0.1);
+  background: linear-gradient(rgba(17, 109, 110, .95),rgba(17, 109, 110, .95)), url({% static 'img/dragon-ball-goku.jpg' %}) center center / cover;
+  padding: 200px 0 ;">
+    <div class="container">
+      <form action="" method="get">
+        <input type="search" name="searchHeader" id="searchHeader" placeholder="Search Here..." class="form-control rounded-5 py-3 ">
+      </form>
+    </div>
+  </div>
+  <!-- End Landing -->
+  <!-- Strat serach-result -->
+  <div class="serach-result">
+    <div class="container">
+      <div class="row">
+        {% for game in game %}
+        <div class="col-lg-2 col-sm-4 col-6 mb-3">
+          <a href="{% url 'gamePage' game.slug %}" class="box pointer crad-game">
+            <div class="position-relative image-add">
+              <img src="{{game.logo.url}}" alt="Image" class="w-100 h-100 obj-cover mb-2">
+              <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+            </div>
+              <div class="text">
+              <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
+              <div class="text-capitalize text-truncate">{{game.name}}</div>
+              <div class="d-flex align-items-center justify-content-between mt-2">
+                {% if game.discount %}
+                <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-{{game.discount}}%</div>
+                <div class="price">
+                  <div class="text-uppercase c-gray me-2"><del>{{game.price}} USD</del></div>
+                  <div class="text-uppercase">{{game.get_price_after_sale}} USD</div>
+                </div>
+                {% else %}
+                <div class="price">
+                    <div class="text-uppercase c-gray me-2">{{game.price}} USD</div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock content %}
