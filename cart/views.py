@@ -22,7 +22,7 @@ class CartView(LoginRequiredMixin,generic.View):
        if 'cancle' in request.POST:
         id = request.POST.get('id')
         print(id)
-        itemm = cart_item.get(id=2)
+        itemm = cart_item.get(id=id)
         itemm.delete()
         return self.get(request)
            

@@ -58,6 +58,9 @@ class UserProfileView(LoginRequiredMixin ,View):
         }
         return render(request, template_name=self.template_name,context=context )
     def post(self,request):
+        if "logout" in request.POST:
+            logout(request)
+            return redirect("login-register")
         update = UpdateForm(request.POST,request.FILES, instance=request.user)
         if update.is_valid():
                 passwd1 = update.cleaned_data['password1']
@@ -71,9 +74,7 @@ class UserProfileView(LoginRequiredMixin ,View):
                 update.save()
                 messages.success(request,"The user data saved successfully .")
                 return render(request=request,template_name= self.template_name, context={'update':update})
-        if "logout" in request.POST:
-            logout(request)
-            return redirect("login-register")
+        
         else:
             messages.error(request, "the username or email may used before")
             return render(request,self.template_name,context={'update':UpdateForm(instance=request.user)})
