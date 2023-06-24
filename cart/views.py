@@ -21,26 +21,9 @@ class CartView(LoginRequiredMixin,generic.View):
        cart_item = CartItem.objects.select_related("cart","game").filter(cart=cart,check_out=False)
        if 'cancle' in request.POST:
         id = request.POST.get('id')
-        print(id)
-        itemm = cart_item.get(id=id)
+        itemm = cart_item.get(pk=id)
         itemm.delete()
         return self.get(request)
-           
-       if "plus" in request.POST:
-        id = request.POST.get('id')
-        game = Game.objects.get(id=id)
-        cart= cart_item.get(game=game)
-        cart.quantity += 1
-        cart.save()
-        return self.get(request)
-       if "minus" in request.POST:
-           id = request.POST.get('id')
-           game = Game.objects.get(id=id)
-           cart= cart_item.get(game=game)
-           cart.quantity -= 1
-           cart.save()
-           return self.get(request)
-
        if "password" in request.POST:
             password = request.POST['password']
             if request.user.check_password(password):

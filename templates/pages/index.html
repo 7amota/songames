@@ -37,7 +37,7 @@
                 <a href="{% url 'gamePage' game.slug %}" class="d-flex align-items-center justify-content-center bg-white c-black rounded-1 btn-land">Buy Now</a>
                 <form method="POST" class=" d-flex align-items-center justify-content-center text-light fs-13 text-uppercase wish rounded-1 btn-land t-duration">
                   {% csrf_token %}
-                  <i class="fa-solid fa-circle-plus me-1"></i>
+                  <i class="fa-solid fa-circle-plus me-1 ms-4 ps-1"></i>
                   <input type="submit" name="{{game.name}}" value="ADD TO WISH LIST" class="h-100 bg-transparent">
                 </form>
               </div>
@@ -78,7 +78,7 @@
             <div class="text">
               <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
               <div class="text-capitalize">{{game.titile}}</div>
-              <div class="text-capitalize">{{game.price}}</div>
+              <div class="text-capitalize">{{game.price}} USD</div>
             </div>
           </div>
         </a>
