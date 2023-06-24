@@ -25,10 +25,11 @@ class GameView(ListView, View):
         context['langames'] = game.all()[1:6]
         context['mostviews'] = game.order_by("-views")[:3]
         context['trend'] = game.order_by("trend")[:10]
-        context['pop'] = game.order_by("popular")
+        context['pop'] = game.filter(popular=True)
         context['mostpop'] = game.order_by('-views')[0]
         context['gallery'] = Gallery.objects.all()
         context['character'] = Character.objects.order_by("?")[:6]
+        context["games"] = Game.objects.all()[:30]
         return context
     def post(self,request):
         if request.user.is_authenticated:
