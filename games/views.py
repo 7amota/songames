@@ -23,12 +23,13 @@ class GameView(ListView, View):
         game = Game.objects
         context['fgame'] = game.first()
         context['langames'] = game.all()[1:6]
-        context['mostviews'] = game.order_by("-views")[:4]
-        context['trend'] = game.order_by("trend")[:4]
-        context['pop'] = game.order_by("popular")
+        context['mostviews'] = game.order_by("-views")[:3]
+        context['trend'] = game.order_by("trend")[:10]
+        context['pop'] = game.filter(popular=True)[:8]
         context['mostpop'] = game.order_by('-views')[0]
         context['gallery'] = Gallery.objects.all()
-        context['character'] = Character.objects.all()[:10]
+        context['character'] = Character.objects.order_by("?")[:6]
+        context["games"] = Game.objects.all()[:30]
         return context
     def post(self,request):
         if request.user.is_authenticated:
@@ -79,10 +80,7 @@ class GameDetailView(LoginRequiredMixin,DetailView, View):
                 return render(request, self.template_name, context={"game":self.get_object()})
 
 
-
             
-           
-
 class CharacterDetailView(LoginRequiredMixin,DetailView):
     queryset = Character.objects.all()
     context_object_name = 'char'
