@@ -1,126 +1,258 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load socialaccount %}
-
 {% block content %}
-<body class="login-page position-relative">
-  <!-- Strat Loging -->
-  <div class="login">
-    <div class="container w-100 position-relative">
-      <div class="d-flex position-absolute top-0 w-100 translate-middle-y justify-content-around buttons-log">
-        <div class="log-btn button rounded-5 py-1 text-center bg-border-gradien pointer t-duration active">Login</div>
-        <div class="register-btn button rounded-5 py-1 text-center bg-border-gradien pointer t-duration">Register</div>
-      </div>
-      <div class="card position-relative">
-        <div class="row rounded-10 log position-absolute start-0 top-0 w-100 h-100">
-          <div class="col-lg-6 text p-lg-4 p-3 h-100">
-            <div class="card-content">
-              <div class="logo-brand p-3 mb-3 w-fit rounded-circle">
-                <img src="{% static 'img/logo-dark.png' %}" alt="image" width="30px">
+{% include 'parts/header.html' %}
+  <!-- End Header -->
+  <section class="landing pt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-9 contents">
+          <div class="content overflow-hidden rounded-10 position-relative t-duration active">
+            <img src="{{fgame.banner.url}}" alt="Image" class="w-100 h-100 obj-cover">
+            <div class="position-absolute h-100 bottom-0 px-4 pe-md-3 ms-1 card-landing d-flex flex-column justify-content-center">
+              <img src="{{fgame.bannerLogo.url}}" alt="Image" class="mb-5 w-10 mt-3">
+              <p class="m-0 mb-2 text-uppercase fs-13 text-light mix-diffrence lh-17">{{fgame.name}}</p>
+              <p class="m-0 text-capitalize text-light mix-diffrence mb-4 lh-17">{{fgame.details}}</p>
+              <div class="price text-light fs-13 mb-2">Starting at {{fgame.price}}</div>
+              <div class="d-flex flex-wrap gap-10 mb-2 justify-content-center justify-content-sm-start">
+                <a href="{% url 'gamePage' fgame.slug %}" class="d-flex align-items-center justify-content-center bg-white c-black rounded-1 btn-land">Buy Now</a>
+                <form method="POST" class=" d-flex align-items-center justify-content-center text-light fs-13 text-uppercase wish rounded-1 btn-land t-duration">
+                  {% csrf_token %}
+                  <i class="fa-solid fa-circle-plus me-1 ms-4 ps-1"></i>
+                  <input type="submit" name="{{fgame.name}}" value="ADD TO WISH LIST" class="h-100 bg-transparent">
+                </form>
               </div>
-              <div class="text-capitalize display-6 fw-bold mb-2">login</div>
-              <div class="c-gray">How do i get son games at?</div>
-              <form action="" method="POST" class="mt-4">
-                {% csrf_token %}
-                <label for="em-log" class="mb-2">Email*</label>
-                {{login.email}}
-                <label for="pas-log" class="mb-2">Password*</label>
-                {{login.password}}
-                <div class="d-flex align-items-center justify-content-between my-3">
-                  <div class="d-flex align-items-center">
-                    <div class="check bg-border-gradien position-relative me-2 pointer t-duration rounded-10"></div>
-                    Remember Me
-                  </div>
-                  {% include 'parts/messages.html' %}
-                  <span class="c-primary fw-bold text-capitalize">forget password?</span>
-                  
-                </div>
-                <input type="submit" class="bg-gradien form-control rounded-5 p-2 mb-3" value="login" name="login">
-                <div class="text-center text-capitalize mb-3">or sign with...</div>
-                <div class="social-log d-flex align-items-center justify-content-center p-2 bg-border-gradien bg-gradien-hover t-duration pointer rounded-5 mb-3">
-                  <img src="{% static 'img/icons8-google-96.png' %}" alt="image" width="20px" class="me-2">
-                  <a href="{% provider_login_url 'google' %}">
-                  <div class="text-capitalize"> sign in with google</div>
-                 </a>
-                </div>
-                <div class="social-log d-flex align-items-center justify-content-center p-2 bg-border-gradien bg-gradien-hover t-duration pointer rounded-5">
-                  <img src="{% static 'img/Facebook_f_logo_(2019).svg.png' %}" alt="image" width="20px" class="me-2">
-                <a href="{% provider_login_url 'facebook' %}">
-                  <div class="text-capitalize"> sign in with facebook</div>
-                </a>
-                </div>
-              </form>
             </div>
           </div>
-          <div class="col-lg-6 image p-5 h-100 d-none d-lg-block">
-            <div class="image-content h-100 rounded-10 position-relative overflow-hidden">
-              <img src="{% static 'img/login-2.png' %}" alt="" class="img-fluid position-absolute bottom-0">
-              <div class="content-text rounded-10 position-absolute start-50 top-50 translate-middle p-3 text-capitalize fw-bold">
-                buy evary game you want to play on one place and for free
+          {% include 'parts/messages.html' %}
+          {% for game in langames %}
+          <div class="content overflow-hidden rounded-10 position-relative t-duration">
+            <img src="{{game.banner.url}}" alt="Image" class="w-100 h-100 obj-cover">
+            <div class="position-absolute h-100 bottom-0 px-4 pe-md-0 ms-1 card-landing d-flex flex-column justify-content-center">
+              <img src="{{game.bannerLogo.url}}" alt="Image" class="mb-5 w-10 mt-3">
+              <p class="m-0 mb-2 text-uppercase fs-13 text-light mix-diffrence lh-17">{{game.titile}}</p>
+              <p class="m-0 text-capitalize text-light mix-diffrence mb-4 lh-17">{{game.details}}</p>
+              <div class="price text-light fs-13 mb-2">Starting at {{game.price}}</div>
+              <div class="d-flex flex-wrap gap-10 mb-2 justify-content-center justify-content-sm-start">
+                <a href="{% url 'gamePage' game.slug %}" class="d-flex align-items-center justify-content-center bg-white c-black rounded-1 btn-land">Buy Now</a>
+                <form method="POST" class=" d-flex align-items-center justify-content-center text-light fs-13 text-uppercase wish rounded-1 btn-land t-duration">
+                  {% csrf_token %}
+                  <i class="fa-solid fa-circle-plus me-1 ms-4 ps-1"></i>
+                  <input type="submit" name="{{game.name}}" value="ADD TO WISH LIST" class="h-100 bg-transparent">
+                </form>
               </div>
             </div>
+          </div>
+          {% endfor %}
+        </div>
+        
+        <div class="col-lg-3 mt-2 mt-lg-0">
+          <div class="content-items d-flex flex-lg-column flex-wrap gap-10 justify-content-between gap-10 h-100">
+            <a href='{% url 'gamePage' fgame.slug %}' class="box p-2 d-flex t-duration rounded-10 pointer align-items-center w-100 active">
+              <img src="{{fgame.logo.url}}" alt="image" class="rounded-10 obj-cover">
+              <div class="text ms-3 text-capitalize">{{fgame.name}}</div>
+            </a>
+            {% for game in langames %}
+            <a href='{% url 'gamePage' game.slug %}' class="box p-2 d-flex t-duration rounded-10 pointer align-items-center w-100">
+              <img src="{{game.logo.url}}" alt="image" class="rounded-10 obj-cover">
+              <div class="text ms-3 text-capitalize">{{game.name}}</div>
+            </a>
+            {% endfor %}
           </div>
         </div>
-        <div class="rounded-10 register position-absolute start-0 top-0 w-100 h-100 p-3">
-          <div class="logo-brand p-3 mb-3 w-fit rounded-circle">
-            <img src="{% static 'img/logo-dark.png' %}" alt="image" width="30px">
+      </div>
+    </div>
+  </section>
+  <!-- Start Most Viewed -->
+  <div class="most-view section-padding-top">
+    <div class="container">
+      <div class="section-title position-relative text-light text-uppercase w-fit bg-main mb-5">Most Viewed</div>
+      <div class="row">
+        {% for game in mostviews %}
+        <a href='{% url 'gamePage' game.slug %}' class="col-lg-4 col-md-6 mb-3">
+          <div class="box pointer">
+            <div class="position-relative image-add">
+              <img src="{{game.logo.url}}" alt="Image" class="img-fluid rounded-10 mb-2 w-100">
+              <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+            </div>
+            <div class="text">
+              <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
+              <div class="text-capitalize">{{game.titile}}</div>
+              {% if game.discount %}
+              <div class="text-capitalize">{{game.get_price_after_sale}} USD</div>
+              {% else %}
+              <div class="text-capitalize">{{game.price}} USD</div>
+              {% endif %}
+            </div>
           </div>
-          <div class="text-capitalize display-6 fw-bold mb-2">sign in</div>
-          <div class="c-gray">How do i get son games at?</div>
-          <form action="" class="row mt-4 form-register" method="POST">
-            {% csrf_token %}
-            <div class="col-xl-4 col-md-6">
-              <label for="us-register" class="mb-2">User Name*</label>
-              {{register.username}}
-            </div>
-            <div class="col-xl-4 col-md-6 position-relative">
-              <label for="em-register" class="mb-2">Email*</label>
-              {{register.email}}
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <label for="date-register" class="mb-2">Date*</label>
-              {{register.dateBirth}}
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <label for="select" class="mb-2">Gender*</label>
-              {{register.gender}}
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <label for="pas-register" class="mb-2">Password*</label>
-              {{register.password1}}
-            </div>
-            <div class="col-xl-4 col-md-6">
-              <label for="conmf-pas-register" class="mb-2">Conmform Password*</label>
-              {{register.password2}}
-            </div>
-            <div class="col-12 d-flex justify-content-center mb-4 mt-3">
-              <div class="col-xl-4 col-12">
-                <input type="submit" class="bg-gradien form-control rounded-5 p-2" value="Sign In" name="register">
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="text-center text-capitalize mb-3">or sign with...</div>
-            </div>
-            <div class="col-md-6">
-              <div class="social-log d-flex align-items-center justify-content-center p-2 bg-border-gradien bg-gradien-hover t-duration pointer rounded-5 mb-3">
-                <img src="{% static 'img/icons8-google-96.png' %}" alt="image" width="20px" class="me-2">
-                <a href="{% provider_login_url 'google' %}">
-                <div class="text-capitalize"> sign in with google</div>
-                </a>
-              </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="social-log d-flex align-items-center justify-content-center p-2 bg-border-gradien bg-gradien-hover t-duration pointer rounded-5">
-                <img src="{% static 'img/Facebook_f_logo_(2019).svg.png' %}" alt="image" width="20px" class="me-2">
-                <a href="{% provider_login_url 'facebook' %}">
-                <div class="text-capitalize"> sign in with facebook</div>
-                </a>
-              </div>
-            </div>
-          </form>
+        </a>
+        {% endfor %}
         </div>
       </div>
     </div>
   </div>
-{% endblock content %}
+  <!-- End Most Viewed -->
+  <!-- Start Trending -->
+  <div class="trending section-padding-top">
+    <div class="container">
+      <div class="section-title position-relative text-light text-uppercase w-fit bg-main mb-5">Trending</div>
+      <div class="d-flex align-items-center flex-wrap gap-10 justify-content-center justify-content-xl-between">
+        {% for game in trend %}
+        <a href='{% url 'gamePage' game.slug %}' class="card-magic position-relative t-duration pointer position-relative">
+          <div class="wrapper t-duration h-100">
+            <img src="{{game.logo.url}}" alt="image" class="w-100 h-100 obj-cover">
+          </div>
+          <img src="{{game.bannerLogo.url}}" alt="image" class="img-fluid position-absolute title translate-middle-x start-50 t-duration">
+          <img src="{{game.character.image.url}}" alt="image" class="position-absolute bottom-0 charcter translate-middle-x start-50 t-duration w-100 h-100 obj-contain d-none d-md-block">
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- End Trending -->
+  <!-- Start Gallary -->
+  <div class="gallary section-padding-top d-none d-md-block">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="section-title position-relative text-light text-uppercase w-fit bg-main mb-5">Gallary</div>
+      </div>
+      <div class="carousel-content position-relative">
+        <ul class="carousel-parent">
+          {% for gallery in gallery %}
+          <li>
+            <div class="show-img position-absolute w-100 h-100 top-0 start-0 pointer"></div>
+            <img src="{{gallery.image.url}}" alt=" image">
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="buttons-carousel position-absolute start-50 translate-middle d-flex align-items-center justify-content-between justify-content-md-around">
+          <button class="prev bg-main pointer t-duration position-relative border-0" title="prevCarousel"></button>
+          <button class="next bg-main pointer t-duration position-relative border-0" title="nextCarousel"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Gallary -->
+ <!-- Start Most Poupler -->
+ <div class="most-poupler section-padding-top">
+  <div class="container">
+    <div class="section-title position-relative text-light text-uppercase w-fit bg-main mb-5">Most Poupler</div>
+    <div class="row justify-content-center">
+      <div class="col-md-4 mb-3 mb-md-0 ps-md-0">
+        <div class="position-relative d-flex flex-column justify-content-end main-part pointer">
+          <div class="position-absolute w-100 h-100 start-0 top-0">
+            <img src="{{mostpop.logo.url}}" alt="image" class="w-100 h-100 obj-cover">
+          </div>
+          <div class="text position-relative p-4">
+            <div class="fs-13 text-capitalize" style="color: rgba(245, 245, 245, 0.6);">base game</div>
+            <div class="text-capitalize text-light">{{mostpop.name}}</div>
+            <div class="d-flex mt-2">
+              <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-20%</div>
+              <div class="text-uppercase me-2" style="color: rgba(245, 245, 245, 0.6);"><del>dkk 424</del></div>
+              <div class="text-uppercase text-light">{{mostpop.price}} USD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 row">
+        {% for game in pop %}
+        <div class="col-lg-3 col-sm-6 mb-2">
+          <div class="box pointer crad-game">
+            <div class="position-relative image-add">
+              <img src="{{game.logo.url}}" alt="Image" class="w-100 h-100 obj-cover mb-2">
+              <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+            </div>
+              <div class="text">
+              <div class="c-gray fs-13 text-capitalize">{{game.features}}</div>
+              <div class="text-capitalize text-truncate">{{game.name}}</div>
+              <div class="d-flex align-items-center justify-content-between mt-2">
+                {% if game.discount %}
+                <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-33%</div>
+                <div class="price">
+                  <div class="text-uppercase c-gray me-2"><del>{{game.price}} USD</del></div>
+                  <div class="text-uppercase">{{game.get_price_after_sale}} USD</div>
+                </div>
+                {% else %}
+                <div class="price">
+                  <div class="text-uppercase">{{game.price}} USD</div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Most Poupler -->
+  <!-- Start Most Poupler Charcters -->
+  <div class="most-charcter-poupler section-padding-top">
+    <div class="container">
+      <div class="section-title position-relative text-light text-uppercase w-fit bg-main mb-5">Most Poupler Charcter Of games</div>
+      <div class="row charcters">
+        {% for chr in character %}
+        <div class="col-xl-4 col-md-6 mb-3">
+          <div class="box d-flex flex-column flex-md-row rounded-10 overflow-hidden h-100">
+            <div class="image">
+              <img src="{{chr.image.url}}" alt="image" class="img-fluid h-100 w-100 obj-cover">
+            </div>
+            <div class="text py-2 px-3 d-flex flex-column">
+              <div class="font-weight-bold text-capitalize mb-2">{{chr.name}}</div>
+              <div class="dec text-capitalize fs-13 mb-2 c-gray">{{chr.details}}</div>
+              <div class="d-flex align-items-center justify-content-between mt-auto ">
+                <a href="{% url 'char' chr.slug %}" class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2 text-capitalize w-fit">read more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Most Poupler Charcters -->
+  <!-- Start More Games -->
+  <div class="more-games section-padding-top section-padding-bottom">
+    <div class="container">
+      <div class="section-title position-relative text-light text-uppercase w-fit bg-main mb-5">More games</div>
+      <div class="row">
+        {% for game in games %}
+        <div class="col-lg-2 col-sm-4 col-6 mb-3">
+          <div class="box pointer crad-game">
+            <div class="position-relative image-add">
+              <img src="img/card-game-9.avif" alt="Image" class="w-100 h-100 obj-cover mb-2">
+              <i class="fa fa-plus-circle position-absolute c-black rounded-circle t-duration"></i>
+            </div>
+              <div class="text">
+              <div class="c-gray fs-13 text-capitalize">base game</div>
+              <div class="text-capitalize text-truncate">One More Dungeon 2</div>
+              <div class="d-flex align-items-center justify-content-between mt-2">
+                <div class="bg-main rounded-1 py-1 px-2 text-light fs-13 pointer me-2">-33%</div>
+                <div class="price">
+                  <div class="text-uppercase c-gray me-2"><del>dkk 95</del></div>
+                  <div class="text-uppercase">dkk 63</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      
+    </div>
+  </div>
+  <!-- End More Games -->
+  <style>
+    .most-charcter-poupler .charcters .image img {
+      height: 180px !important;
+      object-fit:contain;
+  }
+    .most-view img {
+      width: 100%;
+      aspect-ratio: 1.7;
+      object-fit:cover;
+  }
+  </style>
+  <!-- End More Games -->
+  {% endblock content %}
