@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "songames/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "songames/wsgi.py"
+      }
+    ]
+}

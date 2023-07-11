@@ -25,7 +25,7 @@ class GameView(ListView, View):
         context['langames'] = game.all()[1:6]
         context['mostviews'] = game.order_by("-views")[:3]
         context['trend'] = game.order_by("trend")[:10]
-        context['pop'] = game.filter(popular=True)
+        context['pop'] = game.filter(popular=True)[:8]
         context['mostpop'] = game.order_by('-views')[0]
         context['gallery'] = Gallery.objects.all()
         context['character'] = Character.objects.order_by("?")[:6]
@@ -33,6 +33,7 @@ class GameView(ListView, View):
         return context
     def post(self,request):
         if request.user.is_authenticated:
+            print(request.user.has_perm("add_game"))
             key = get_key(request)
             game = Game.objects.filter(name=key).first()
             wish,create = WishList.objects.get_or_create(user=request.user,game=game)
@@ -134,3 +135,4 @@ class BrowseView(LoginRequiredMixin,ListView,View):
             query =Game.objects.prefetch_related('categories').filter(categories__title=key)
             context['game'] = query
             return render(request,self.template_name,context=context)
+
