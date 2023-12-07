@@ -2,8 +2,6 @@
 
 songames is a web platform dedicated to providing a curated collection of exciting and diverse games for users to explore and enjoy. Inspired by platforms like Epic Games, songames aims to offer a seamless and immersive gaming experience.
 
-![songames](https://github.com/7amota/songames/blob/main/songames.jpg?raw=true)
-
 ## Table of Contents
 
 - [Introduction](#introduction)
